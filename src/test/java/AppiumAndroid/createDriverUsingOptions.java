@@ -67,6 +67,38 @@ driver.navigate().back();
 		
 		String dragg = driver.findElement(AppiumBy.id("io.appium.android.apis:id/drag_result_text")).getText();
 		System.out.println(dragg);
+		driver.navigate().back();
+		driver.navigate().back();
+		
+	}
+	
+	public static void clickGesture() {
+		
+		WebElement accessibilEle = driver.findElement(AppiumBy.accessibilityId("Accessibility"));
+		driver.executeScript("mobile: clickGesture", ImmutableMap.of(
+			    "elementId", ((RemoteWebElement) accessibilEle).getId()
+			));
+		driver.findElement(AppiumBy.accessibilityId("Accessibility Node Provider")).click();
+		driver.navigate().back();
+		driver.navigate().back();
+		
+	}
+	
+	public static void dragGesture() {
+		
+		driver.findElement(AppiumBy.accessibilityId("Views")).click();
+		driver.findElement(AppiumBy.accessibilityId("Drag and Drop")).click();
+		
+		WebElement dragEle = driver.findElement(AppiumBy.id("io.appium.android.apis:id/drag_dot_1"));
+		driver.executeScript("mobile: dragGesture", ImmutableMap.of(
+			    "elementId", ((RemoteWebElement) dragEle).getId(),
+			    "endX", 625,
+			    "endY", 567
+			));
+		String dragAndDrop = driver.findElement(AppiumBy.id("io.appium.android.apis:id/drag_result_text")).getText();
+		System.out.println(dragAndDrop);
+		driver.navigate().back();
+		driver.navigate().back();
 		
 	}
 	public static void main(String[] args) throws Exception {
@@ -75,9 +107,11 @@ driver.navigate().back();
 		
 		createDriver();
 		
-		actions();
+	//	actions();
 		
-		longclickGesture();
+	//	longclickGesture();
+	//	clickGesture();
+		dragGesture();
 		
 	}
 	
