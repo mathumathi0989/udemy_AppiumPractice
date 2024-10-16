@@ -101,6 +101,59 @@ driver.navigate().back();
 		driver.navigate().back();
 		
 	}
+	
+	public static void swipe() {
+		/*
+		driver.findElement(AppiumBy.accessibilityId("Views")).click();
+		WebElement element = driver.findElement(AppiumBy.id("android:id/list"));
+		driver.executeScript("mobile: swipeGesture", ImmutableMap.of(
+				//using coordinates
+		//	    "left", 100, "top", 100, "width", 600, "height", 600,
+				//using element
+			 "elementId", ((RemoteWebElement)element).getId(),
+				"direction", "up", //direction should be up or left or right or down
+			    "percent", 0.75
+			));
+		
+		*/
+		driver.findElement(AppiumBy.accessibilityId("Views")).click();
+		
+		driver.findElement(AppiumBy.accessibilityId("Gallery")).click();
+		
+		driver.findElement(AppiumBy.accessibilityId("1. Photos")).click();
+		WebElement element = driver.findElement(AppiumBy.xpath("//android.widget.Gallery[@resource-id=\"io.appium.android.apis:id/gallery\"]/android.widget.ImageView[1]"));
+		
+		
+		driver.executeScript("mobile: swipeGesture", ImmutableMap.of(
+			 "elementId", ((RemoteWebElement)element).getId(),
+				"direction", "left",
+			    "percent", 1.0
+			));
+		
+		WebElement element1 = driver.findElement(AppiumBy.xpath("//android.widget.Gallery[@resource-id=\"io.appium.android.apis:id/gallery\"]/android.widget.ImageView[3]"));
+			
+		driver.executeScript("mobile: swipeGesture", ImmutableMap.of(
+				 "elementId", ((RemoteWebElement)element1).getId(),
+					"direction", "right",
+				    "percent", 1.0
+				));
+	}
+	
+	
+	public static void scroll() {
+		
+		driver.findElement(AppiumBy.accessibilityId("Views")).click();
+		boolean scrollMore = true;
+		while(scrollMore) {
+			scrollMore = (Boolean) driver.executeScript("mobile: swipeGesture", ImmutableMap.of(
+				//using coordinates
+				"left", 100, "top", 100, "width", 600, "height", 600,
+				"direction", "down", //direction should be up or left or right or down
+			    "percent", 1.0
+			));
+		}
+		
+	}
 	public static void main(String[] args) throws Exception {
 		
 		
@@ -111,7 +164,9 @@ driver.navigate().back();
 		
 	//	longclickGesture();
 	//	clickGesture();
-		dragGesture();
+	//	dragGesture();
+	//	swipe();
+		scroll();
 		
 	}
 	
