@@ -137,35 +137,46 @@ driver.navigate().back();
 					"direction", "right",
 				    "percent", 1.0
 				));
+		driver.navigate().back();
+		driver.navigate().back();
+		driver.navigate().back();
 	}
 	
 	
 	public static void scroll() {
 		
+		// Scroll down first
 		driver.findElement(AppiumBy.accessibilityId("Views")).click();
+
 		boolean scrollMore = true;
-		while(scrollMore) {
-			scrollMore = (Boolean) driver.executeScript("mobile: swipeGesture", ImmutableMap.of(
-				//using coordinates
-				"left", 100, "top", 100, "width", 600, "height", 600,
-				"direction", "down", //direction should be up or left or right or down
-			    "percent", 1.0
-			));
+		while (scrollMore) {
+		    scrollMore = (boolean) driver.executeScript("mobile: scrollGesture", ImmutableMap.of(
+		        "left", 100, "top", 100, "width", 600, "height", 600,
+		        "direction", "down", // Scroll down
+		        "percent", 1.0
+		    ));
 		}
-		
+	
+		// Now scroll back up
+		boolean scrollMoreUp = true;
+		while (scrollMoreUp) {
+		    scrollMoreUp = (boolean) driver.executeScript("mobile: scrollGesture", ImmutableMap.of(
+		        "left", 100, "top", 500, "width", 600, "height", 600,
+		        "direction", "up", // Scroll up
+		        "percent", 1.0
+		    ));
+		}
+		driver.navigate().back();
+	
 	}
 	public static void main(String[] args) throws Exception {
 		
-		
-		
 		createDriver();
-		
-	//	actions();
-		
-	//	longclickGesture();
-	//	clickGesture();
-	//	dragGesture();
-	//	swipe();
+		actions();
+		longclickGesture();
+		clickGesture();
+		dragGesture();
+		swipe();
 		scroll();
 		
 	}
